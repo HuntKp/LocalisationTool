@@ -1,0 +1,202 @@
+﻿<Window x:Class="LocalisationTool.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LocalisationTool"
+        mc:Ignorable="d"
+        Title="Kākāpō Localisation Tool" Height="500" Width="850">
+    <Grid>
+        <DockPanel>
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="_File">
+                    <MenuItem Header="Import">
+                        <MenuItem Header="RC String tables">
+                            <MenuItem Header="Import String table" Click="OnImportSingleStringTable"/>
+                            <MenuItem Header="Import All string tables in folder" Click="OnImportAllRCStringTable"/>
+                        </MenuItem>
+                        <MenuItem Header="Language Dlls">
+                            <MenuItem Header="Import Dll" Click="OnImportSingleStringTable"/>
+                            <MenuItem Header="Import All Dlls" Click="OnImportAllRCStringTable"/>
+                        </MenuItem>
+                        <MenuItem Header="Language XMLs">
+                            <MenuItem Header="Import XML" Click="OnImportSingleStringTable"/>
+                            <MenuItem Header="Import All XMLs" Click="OnImportAllRCStringTable"/>
+                        </MenuItem>
+                        <MenuItem Header="Excel">
+                            <MenuItem Header="Import only Excel" Click="OnImportExcel"/>
+                        </MenuItem>
+                    </MenuItem>
+                    <MenuItem Header="Export">
+                        <MenuItem Header="Excel">
+                            <MenuItem Header="Export to Excel" Click="OnExportExcel"/>
+                        </MenuItem>
+                        <MenuItem Header="DLL">
+                            <MenuItem Header="Export to DLL" Click="OnExportExcel"/>
+                        </MenuItem>
+                        <MenuItem Header="String Table">
+                            <MenuItem Header="Export to String Table" Click="OnExportToProject"/>
+                        </MenuItem>
+                        <MenuItem Header="XML">
+                            <MenuItem Header="Export to XML" Click="OnExportExcel"/>
+                        </MenuItem>
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Header="_Tools">
+                    <MenuItem Header="Options" Click="OnOptions"/>
+                    <MenuItem Header="Language">
+                        <MenuItem Header="Hi"></MenuItem>
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Header="_Help">
+                    <MenuItem Header="About" Click="OnAbout"/>
+                </MenuItem>
+            </Menu>
+            <!-- Buttons -->
+            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Background="White" Margin="0,0,0,0" Height="30">
+                <Button Content="Import Single String Table" Width="160" Margin="5,0" Click="OnImportSingleStringTable" Height="23"/>
+                <Button Content="Import All String tables" Width="137" Margin="5,0" Click="OnImportAllRCStringTable" Height="22"/>
+                <Button Content="Import from Excel" Width = "110" Height="23" Margin="5,0" Click="OnImportExcel" />
+                <Button Content="Export to Project" Width="160" Margin="5,0" Click="OnExportToProject" Height="23"/>
+                <Button Content="Export to Excel" Width="90" Margin="5,0" Click="OnExportExcel" Height="23"/>
+                <Button Content="Options" Width="80" Margin="5,0" Click="OnOptions" Height="23"/>
+            </StackPanel>
+            <!-- Localisation Container tabs -->
+            <TabControl x:Name="MainTabControl">
+                <!-- Tab Main -->
+                <TabItem Header = "Main - Localisation Source">
+                    <Grid Margin="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="10,10,10,0">
+                            <TextBlock Text="Project:" VerticalAlignment="Center" Margin="20,0,5,0"/>
+                            <ComboBox x:Name="ProjectComboBox" Width="209" DisplayMemberPath="ProjectName" SelectionChanged="ProjectComboBox_SelectionChanged" Height="23"/>
+                            <TextBlock Text="Language:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                            <ComboBox x:Name="LanguageComboBox" Width="209" DisplayMemberPath="Language" SelectionChanged="LanguageComboBox_SelectionChanged" Height="23"/>
+                        </StackPanel>
+                        <DataGrid x:Name="LocalisationDataGrid" AutoGenerateColumns="False" Margin="10" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Background="White">
+                            <DataGrid.Columns>
+                                <!-- Button column -->
+                                <DataGridTemplateColumn Header="Action" Width="60">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Content="..." Click="EntryInfo_Open" Tag="{Binding}" Padding="4,0"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <!-- ID column -->
+                                <DataGridTextColumn Header="ID" Binding="{Binding ID}" Width="0.5*"/>
+                                <!-- Text column -->
+                                <DataGridTemplateColumn Header="Text" Width="2*">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Text}" TextWrapping="Wrap" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <!-- Project column -->
+                                <DataGridTextColumn Header="Project" Binding="{Binding FileName}" Width="0.5*"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </TabItem>
+                <!-- Excel Tab -->
+                <TabItem Header = "Excel - Data from Localisation Excel">
+                    <Grid Margin="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="10,10,10,0">
+                            <TextBlock Text="Project:" VerticalAlignment="Center" Margin="20,0,5,0"/>
+                            <ComboBox x:Name="ProjectComboBox_Excel" Width="209" DisplayMemberPath="ProjectName" SelectionChanged="ProjectComboBox_SelectionChanged_Excel" Height="23"/>
+                            <TextBlock Text="Language:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                            <ComboBox x:Name="LanguageComboBox_Excel" Width="209" DisplayMemberPath="Language" SelectionChanged="LanguageComboBox_SelectionChanged_Excel" Height="23"/>
+                        </StackPanel>
+                        <DataGrid x:Name="LocalisationDataGrid_Excel" AutoGenerateColumns="False" Margin="10" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Background="White">
+                            <DataGrid.Columns>
+                                <!-- Button column -->
+                                <DataGridTemplateColumn Header="Action" Width="60">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Content="..." Click="EntryInfo_Open" Tag="{Binding}" Padding="4,0"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <!-- ID column -->
+                                <DataGridTextColumn Header="ID" Binding="{Binding ID}" Width="0.5*"/>
+                                <!-- Text column -->
+                                <DataGridTemplateColumn Header="Text" Width="2*">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Text}" TextWrapping="Wrap" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <!-- Project column -->
+                                <DataGridTextColumn Header="Project" Binding="{Binding FileName}" Width="0.5*"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </DockPanel>
+        <!--  localisation entry more info  -->
+        <Grid x:Name="LocalisationEntryMore"
+          Background="FloralWhite"
+          Visibility="Collapsed"
+          HorizontalAlignment="Stretch"
+          VerticalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <!-- Title at the top -->
+
+            <TextBlock x:Name="LocalisationEntryMore_IDTitle" Grid.Row="0"
+               Text="ID"
+               FontSize="18"
+               Margin="10,10,10,0"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Top"
+               Background="FloralWhite"/>
+
+            <DataGrid x:Name="LocalisationDataGrid_Entry" AutoGenerateColumns="False" Margin="10" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Background="FloralWhite">
+                <DataGrid.Columns>
+                    <!-- Language column -->
+                    <DataGridTextColumn Header="Language" Binding="{Binding Language}" Width="0.5*"/>
+                    <!-- Text column -->
+                    <DataGridTemplateColumn Header="Text" Width="2*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Text}" TextWrapping="Wrap" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <!-- Close button at the bottom -->
+            <StackPanel Grid.Row="2" Background="FloralWhite" HorizontalAlignment="Center">
+                <Button Content="Close" Width="100" Margin="10,10,10,10" Click="EntryInfo_Close"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- loading screen -->
+        <Grid x:Name="LoadingOverlay"
+          Background="#80000000"
+          Visibility="Collapsed"
+          HorizontalAlignment="Stretch"
+          VerticalAlignment="Stretch"
+          Panel.ZIndex="100">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <ProgressBar IsIndeterminate="True" Width="200" Height="20"/>
+                <TextBlock Text="Working, please wait..." Foreground="White" FontSize="16" Margin="0,10,0,0" HorizontalAlignment="Center"/>
+                <TextBlock Text="Did you know, the Kākāpō is a species of flightless parrot which has been known to damage car tyres with their beaks. They do this because car manufacturers refuse to make cars compatible with Kākāpō physiology, forcing the poor birds to walk everywhere, even to the local shops." Foreground="White" Background ="Black" FontSize="16" Margin="250,10,250,0" HorizontalAlignment="Center" TextWrapping="Wrap"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

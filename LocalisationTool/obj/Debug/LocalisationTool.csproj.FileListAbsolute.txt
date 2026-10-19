@@ -1,0 +1,15 @@
+C:\Dev\Localistion Tool\LocalisationTool\LocalisationTool\LocalisationTool\bin\Debug\LocalisationTool.exe.config
+C:\Dev\Localistion Tool\LocalisationTool\LocalisationTool\LocalisationTool\bin\Debug\LocalisationTool.exe
+C:\Dev\Localistion Tool\LocalisationTool\LocalisationTool\LocalisationTool\bin\Debug\LocalisationTool.pdb
+C:\Dev\Localistion Tool\LocalisationTool\LocalisationTool\LocalisationTool\obj\Debug\LocalisationTool.csproj.AssemblyReference.cache
+C:\Dev\Localistion Tool\LocalisationTool\LocalisationTool\LocalisationTool\obj\Debug\MainWindow.g.cs
+C:\Dev\Localistion Tool\LocalisationTool\LocalisationTool\LocalisationTool\obj\Debug\App.g.cs
+C:\Dev\Localistion Tool\LocalisationTool\LocalisationTool\LocalisationTool\obj\Debug\LocalisationTool_MarkupCompile.cache
+C:\Dev\Localistion Tool\LocalisationTool\LocalisationTool\LocalisationTool\obj\Debug\LocalisationTool_MarkupCompile.lref
+C:\Dev\Localistion Tool\LocalisationTool\LocalisationTool\LocalisationTool\obj\Debug\MainWindow.baml
+C:\Dev\Localistion Tool\LocalisationTool\LocalisationTool\LocalisationTool\obj\Debug\LocalisationTool.g.resources
+C:\Dev\Localistion Tool\LocalisationTool\LocalisationTool\LocalisationTool\obj\Debug\LocalisationTool.Properties.Resources.resources
+C:\Dev\Localistion Tool\LocalisationTool\LocalisationTool\LocalisationTool\obj\Debug\LocalisationTool.csproj.GenerateResource.cache
+C:\Dev\Localistion Tool\LocalisationTool\LocalisationTool\LocalisationTool\obj\Debug\LocalisationTool.csproj.CoreCompileInputs.cache
+C:\Dev\Localistion Tool\LocalisationTool\LocalisationTool\LocalisationTool\obj\Debug\LocalisationTool.exe
+C:\Dev\Localistion Tool\LocalisationTool\LocalisationTool\LocalisationTool\obj\Debug\LocalisationTool.pdb
